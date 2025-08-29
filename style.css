@@ -87,6 +87,27 @@ main {
   width: 100%;
 }
 
+/* BOTAO ADICIONAR JOGADORA */
+/* BOTAO ADICIONAR JOGADORA */
+#btn-adicionar {
+  background-color: #c890a7;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.425);
+  color: #212121;
+  font-size: 0.9rem;
+  padding: 4px;
+  margin: 10px 0;
+  width: 50%;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  &:hover {
+    background-color: #a35c7a;
+    box-shadow: 3px 6px 7px rgba(0, 0, 0, 0.425);
+    transform: scale(1.01);
+  }
+}
+
 /* FORMULARIO */
 #form-section {
   display: flex;
@@ -95,24 +116,6 @@ main {
   justify-content: space-around;
   gap: 10px;
   width: 100%;
-  & > button {
-    background-color: #c890a7;
-    border: none;
-    border-radius: 5px;
-    box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.425);
-    color: #212121;
-    font-size: 0.9rem;
-    padding: 4px;
-    margin: 10px 0;
-    width: 50%;
-    transition: all 0.3s ease-in-out;
-    cursor: pointer;
-  }
-  & > button:hover {
-    background-color: #a35c7a;
-    box-shadow: 3px 6px 7px rgba(0, 0, 0, 0.425);
-    transform: scale(1.01);
-  }
   & #form-jogadora {
     display: grid;
     grid-template-columns: 1fr;
