@@ -68,6 +68,7 @@ header {
         padding: 5px;
         width: 50%;
         transition: all 0.3s ease;
+        cursor: pointer;
       }
       & > button:hover {
         background-color: #a35c7a;
@@ -105,6 +106,7 @@ main {
     margin: 10px 0;
     width: 50%;
     transition: all 0.3s ease-in-out;
+    cursor: pointer;
   }
   & > button:hover {
     background-color: #a35c7a;
@@ -170,6 +172,7 @@ main {
         margin-top: 10px;
         transition: all 0.3s ease-in-out;
         width: 50%;
+        cursor: pointer;
       }
       & button:hover {
         background-color: #a35c7a;
@@ -177,6 +180,81 @@ main {
         transform: scale(1.01);
       }
     }
+  }
+}
+
+/* CARDS */
+#cards-section {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  justify-items: center;
+  width: 100%;
+  & .card {
+    background-color: #212121;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.24);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 5px;
+    width: 90%;
+    transition: all 0.3s ease;
+    & * {
+      color: #a35c7a;
+    }
+    & img {
+      width: 50%;
+    }
+    & h3 {
+      font-size: 1.3rem;
+      text-decoration: underline;
+    }
+    & > p {
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+    & .card-estatisticas {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+      width: 100%;
+      & i {
+        margin-right: 5px;
+      }
+    }
+    & .card-acoes {
+      border-top: 1px solid #a35c7a;
+      display: flex;
+      justify-content: space-around;
+      gap: 7px;
+      padding-top: 5px;
+      width: 100%;
+      & * {
+        color: #212121;
+      }
+      & button {
+        background-color: #c890a7;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 0;
+        width: 25%;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      & button:hover {
+        background-color: #a35c7a;
+        transform: scale(1.01);
+      }
+    }
+  }
+  & .card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.24);
   }
 }
 
@@ -213,6 +291,10 @@ main {
       }
     }
   }
+
+  #cards-section {
+    grid-template-columns: repeat(2, minmax(250px, 1fr));
+  }
 }
 
 @media screen and (min-width: 1280px) {
@@ -222,5 +304,9 @@ main {
     & > .controles {
       width: 70%;
     }
+  }
+
+  #cards-section {
+    grid-template-columns: repeat(3, minmax(250px, 1fr));
   }
 }
