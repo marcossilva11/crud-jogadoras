@@ -38,7 +38,90 @@
     </header>
     <main>
       <!-- secao onde sera exibido o formulario de cadastro -->
-      <section id="form-section"></section>
+      <section id="form-section">
+        <button id="btn-adicionar">Adicionar jogadora</button>
+        <h2 id="form-titulo">Adicionando uma jogadora</h2>
+        <form id="form-jogadora">
+          <div class="form-bloco">
+            <h3>Informações básicas</h3>
+            <div class="input-box">
+              <label for="nome">Nome:</label>
+              <input
+                type="text"
+                class="form-input"
+                id="nome"
+                name="nome"
+                placeholder="Digite o nome"
+              />
+            </div>
+            <div class="input-box">
+              <label for="posicao">Posição:</label>
+              <select class="form-input" name="posicao" id="posicao">
+                <option value=""></option>
+                <option value="goleira">Goleira</option>
+                <option value="zagueira">Zagueira</option>
+                <option value="meio-campo">Meio-campo</option>
+                <option value="atacante">Atacante</option>
+              </select>
+            </div>
+            <div class="input-box">
+              <label for="clube">Clube:</label>
+              <input
+                type="text"
+                class="form-input"
+                name="clube"
+                id="clube"
+                placeholder="Digite o clube"
+              />
+            </div>
+            <div class="input-box">
+              <label for="foto">Imagem da jogadora (URL):</label>
+              <input
+                type="text"
+                class="form-input"
+                name="foto"
+                id="foto"
+                placeholder="Digite a URL da imagem"
+              />
+            </div>
+          </div>
+          <div class="form-bloco">
+            <h3>Estatísticas</h3>
+            <div class="input-box">
+              <label for="gols">Número de gols:</label>
+              <input
+                type="number"
+                class="form-input"
+                name="gols"
+                id="gols"
+                placeholder="Digite o número de gols"
+              />
+            </div>
+            <div class="input-box">
+              <label for="assistencias">Número de assistências:</label>
+              <input
+                type="number"
+                class="form-input"
+                name="assistencias"
+                id="assistencias"
+                placeholder="Digite o número de assistências"
+              />
+            </div>
+            <div class="input-box">
+              <label for="jogos">Número de jogos:</label>
+              <input
+                type="number"
+                class="form-input"
+                name="jogos"
+                id="jogos"
+                placeholder="Digite o número de jogos"
+              />
+            </div>
+          </div>
+          <button type="submit" id="form-btn">Adicionar</button>
+          <button type="button" id="form-cancelar">Cancelar</button>
+        </form>
+      </section>
 
       <!-- secao onde serao exibidos os cards gerados atraves do javascript -->
       <section id="cards"></section>
