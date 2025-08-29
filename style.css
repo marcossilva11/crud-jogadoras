@@ -3,18 +3,23 @@
   margin: 0;
   box-sizing: border-box;
   font-family: "Inter", sans-serif;
+  color: #212121;
+}
+
+body {
+  background-color: #fbf5e5;
 }
 
 /* HEADER */
 header {
   background-color: #212121;
-  color: #fbf5e5;
   padding: 5px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
   & > h1 {
+    color: #fbf5e5;
     font-size: 1.9rem;
     text-align: center;
   }
@@ -71,6 +76,111 @@ header {
   }
 }
 
+/* MAIN */
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  gap: 20px;
+  width: 100%;
+}
+
+/* FORMULARIO */
+#form-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  gap: 10px;
+  width: 100%;
+  & > button {
+    background-color: #c890a7;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.425);
+    color: #212121;
+    font-size: 0.9rem;
+    padding: 4px;
+    margin: 10px 0;
+    width: 50%;
+    transition: all 0.3s ease-in-out;
+  }
+  & > button:hover {
+    background-color: #a35c7a;
+    box-shadow: 3px 6px 7px rgba(0, 0, 0, 0.425);
+    transform: scale(1.01);
+  }
+  & #form-jogadora {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 10px;
+    padding: 10px;
+    width: 100%;
+    & .form-bloco {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 2px 3px 4px rgba(0, 0, 0, 0.253);
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      width: 90%;
+      & h3 {
+        margin-bottom: 5px;
+      }
+      & .input-box {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        width: 85%;
+        & label {
+          font-size: 0.9rem;
+          font-weight: 600;
+        }
+        & .form-input {
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          box-shadow: 3px 4px 6px rgba(0, 0, 0, 0.2);
+          font-size: 0.9rem;
+          outline: none;
+          padding: 4px;
+          transition: all 0.2s ease;
+        }
+        & .form-input:focus,
+        & .form-input:hover {
+          transform: scale(1.02);
+        }
+      }
+    }
+    & .form-buttons {
+      display: flex;
+      gap: 7px;
+      width: 90%;
+      & button {
+        background-color: #c890a7;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.425);
+        color: #212121;
+        font-size: 0.9rem;
+        padding: 4px;
+        margin-top: 10px;
+        transition: all 0.3s ease-in-out;
+        width: 50%;
+      }
+      & button:hover {
+        background-color: #a35c7a;
+        box-shadow: 3px 6px 7px rgba(0, 0, 0, 0.425);
+        transform: scale(1.01);
+      }
+    }
+  }
+}
+
+/* RESPONSIVIDADE */
 @media screen and (min-width: 768px) {
   header > .controles {
     flex-direction: row;
@@ -81,6 +191,26 @@ header {
     }
     & > .botoes-ordenacao {
       width: 50%;
+    }
+  }
+
+  #form-section {
+    & > button {
+      width: 50%;
+    }
+    & #form-jogadora {
+      grid-template-columns: 1fr 1fr;
+      width: 100%;
+      & .form-bloco {
+        justify-content: center;
+      }
+      & .form-buttons {
+        display: contents;
+        gap: 0;
+        & button {
+          width: 90%;
+        }
+      }
     }
   }
 }
