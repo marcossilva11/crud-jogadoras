@@ -88,7 +88,6 @@ main {
 }
 
 /* BOTAO ADICIONAR JOGADORA */
-/* BOTAO ADICIONAR JOGADORA */
 #btn-adicionar {
   background-color: #c890a7;
   border: none;
@@ -258,6 +257,19 @@ main {
   & .card:hover {
     transform: scale(1.02);
     box-shadow: 0 0 7px rgba(0, 0, 0, 0.24);
+  }
+}
+
+/* FOOTER */
+footer {
+  background-color: #212121;
+  margin-top: 8px;
+  padding: 7px 0;
+  width: 100%;
+  & p {
+    color: #a35c7a;
+    font-size: 0.8rem;
+    text-align: center;
   }
 }
 
