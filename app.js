@@ -66,7 +66,10 @@ btnCancelar.addEventListener("click", () => {
 
 // Inicializacao
 window.onload = function () {
+  carregarJogadoras();
   exibirJogadoras();
+
+  document.querySelector("#form-jogadora").addEventListener("submit", adicionarJogadora);
 };
 
 // LocalStorage
@@ -82,7 +85,48 @@ function carregarJogadoras() {
 }
 
 // CREATE
-function adicionarJogadora() {}
+function adicionarJogadora(e) {
+  e.preventDefault();
+
+  const nome = document.querySelector("#nome").value.trim();
+  const posicao = document.querySelector("#posicao").value.trim();
+  const clube = document.querySelector("#clube").value.trim();
+  const foto = document.querySelector("#foto").value.trim();
+  const gols = document.querySelector("#gols").value.trim();
+  const assistencias = document.querySelector("#assistencias").value.trim();
+  const jogos = document.querySelector("#jogos").value.trim();
+
+  if (
+    !nome ||
+    !posicao ||
+    !clube ||
+    !foto ||
+    !gols ||
+    !assistencias ||
+    !jogos
+  ) {
+    alert("Por favor, preencha todos os campos.");
+    return;
+  }
+
+  const novaJogadora = {
+    nome,
+    posicao,
+    clube,
+    foto,
+    gols: parseInt(gols),
+    assistencias: parseInt(assistencias),
+    jogos: parseInt(jogos),
+    favorita: false,
+  };
+
+  jogadoras.push(novaJogadora);
+  salvarJogadoras();
+  exibirJogadoras();
+
+  document.getElementById("form-jogadora").reset();
+  secaoFormulario.style.display = "none";
+}
 
 // READ
 function exibirJogadoras() {
