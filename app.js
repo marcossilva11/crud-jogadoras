@@ -69,6 +69,18 @@ window.onload = function () {
   exibirJogadoras();
 };
 
+// LocalStorage
+function salvarJogadoras() {
+  localStorage.setItem("jogadoras", JSON.stringify(jogadoras));
+}
+
+function carregarJogadoras() {
+  const jogadorasSalvas = localStorage.getItem("jogadoras");
+  if (jogadorasSalvas) {
+    jogadoras = JSON.parse(jogadorasSalvas);
+  }
+}
+
 // CREATE
 function adicionarJogadora() {}
 
@@ -90,7 +102,9 @@ function exibirJogadoras() {
           <p>${j.posicao} - ${j.clube}</p>
           <div class="card-estatisticas">
             <span><i class="fa-solid fa-futbol"></i>${j.gols} Gols</span>
-            <span><i class="fa-solid fa-handshake-angle"></i>${j.assistencias} Assistências</span>
+            <span><i class="fa-solid fa-handshake-angle"></i>${
+              j.assistencias
+            } Assistências</span>
             <span><i class="fa-solid fa-tshirt"></i>${j.jogos} Jogos</span>
           </div>
           <div class="card-acoes">
