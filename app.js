@@ -259,4 +259,14 @@ function atualizarJogadora(index) {
 }
 
 // DELETE
-function deletarJogadora() {}
+function deletarJogadora(index) {
+  const confirmacao = confirm(
+    "Tem certeza de que deseja excluir esta jogadora?"
+  );
+  if (!confirmacao) return;
+
+  jogadoras.splice(index, 1);
+  salvarJogadoras();
+  exibirJogadoras();
+  alert("Jogadora removida com sucesso!");
+}
