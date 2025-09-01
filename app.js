@@ -92,7 +92,7 @@ window.onload = function () {
     });
 };
 
-// LocalStorage
+// configurando LocalStorage
 function salvarJogadoras() {
   localStorage.setItem("jogadoras", JSON.stringify(jogadoras));
 }
@@ -248,7 +248,7 @@ function atualizarJogadora(index) {
   salvarJogadoras();
   exibirJogadoras();
 
-  alert("Jogadora atualizada com sucesso!");
+  alert("Jogadora editada com sucesso!");
   document.getElementById("form-jogadora").reset();
   secaoFormulario.style.display = "none";
   indexJogadora = null;
