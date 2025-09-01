@@ -56,6 +56,7 @@ let ordemNomeAsc = true;
 let posicaoAsc = true;
 let tipoOrdenacao = "padrao";
 
+// ordem por posicao
 const ordemPosicoes = {
   Goleira: 1,
   Zagueira: 2,
@@ -68,6 +69,7 @@ const selectClube = document.querySelector("#filtroClubes");
 const btnOrdenarNome = document.querySelector("#ordenarNome");
 const btnOrdenarPosicao = document.querySelector("#ordenarPosicao");
 
+// atualiza o select de clubes
 function atualizarFiltroClubes() {
   selectClube.innerHTML = '<option value="">Todos os clubes</option>';
   const clubes = [];
@@ -82,10 +84,12 @@ function atualizarFiltroClubes() {
   });
 }
 
+// aplica os filtros
 function aplicarFiltros() {
   const textoBusca = inputBusca.value.trim().toLowerCase();
   const clubeSelecionado = selectClube.value;
 
+  // filtra pelo o que foi digitado no input e pela opcao selecionada no select
   let listaFiltrada = jogadoras.filter((j) => {
     const correspondeNomeOuPosicao =
       j.nome.toLowerCase().includes(textoBusca) ||
@@ -96,6 +100,7 @@ function aplicarFiltros() {
     return correspondeNomeOuPosicao && correspondeClube;
   });
 
+  // verifica qual o tipo da ordenacao
   if (tipoOrdenacao === "nome") {
     listaFiltrada.sort((a, b) => {
       const resultadoNome = a.nome
