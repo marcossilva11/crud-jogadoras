@@ -51,6 +51,45 @@ let jogadoras = [
   },
 ];
 
+// --- FILTROS ---
+
+// Filtro por clube
+const selectClube = document.querySelector("#filtroClubes");
+
+function atualizarFiltroClubes() {
+  const select = document.querySelector("#filtroClubes");
+  select.innerHTML = '<option value="">Todos os clubes</option>'; 
+
+  const clubes = [];
+
+  jogadoras.forEach(j => {
+    if (!clubes.includes(j.clube)) {
+      clubes.push(j.clube);
+    }
+  });
+
+  clubes.forEach((clube) => {
+    const option = document.createElement("option");
+    option.value = clube;
+    option.textContent = clube;
+    select.appendChild(option);
+  });
+}
+
+atualizarFiltroClubes();
+
+document.querySelector("#filtroClubes").addEventListener("change", function () {
+  const clubeSelecionado = this.value;
+
+  const jogadorasFiltradas = clubeSelecionado
+    ? jogadoras.filter((j) => j.clube === clubeSelecionado)
+    : jogadoras;
+
+  exibirJogadoras(jogadorasFiltradas);
+});
+
+// --- CRUD ---
+
 let indexJogadora = null;
 
 const formTitulo = document.querySelector("#form-titulo");
@@ -78,6 +117,7 @@ btnCancelar.addEventListener("click", () => {
 window.onload = function () {
   carregarJogadoras();
   exibirJogadoras();
+  atualizarFiltroClubes();
 
   document
     .querySelector("#form-jogadora")
@@ -142,6 +182,7 @@ function adicionarJogadora(e) {
 
   jogadoras.push(novaJogadora);
   salvarJogadoras();
+  atualizarFiltroClubes();
   exibirJogadoras();
 
   alert("Jogadora adicionada com sucesso!");
@@ -149,12 +190,16 @@ function adicionarJogadora(e) {
   secaoFormulario.style.display = "none";
 }
 
+console.log(jogadoras);
+
 // READ
-function exibirJogadoras() {
+function exibirJogadoras(lista = jogadoras) {
   const container = document.querySelector("#cards-section");
   container.innerHTML = "";
 
-  jogadoras.forEach((j, index) => {
+  lista.forEach((j, index) => {
+    const indexOriginal = jogadoras.indexOf(j);
+
     const card = document.createElement("div");
     card.classList.add("card");
 
@@ -188,15 +233,17 @@ function exibirJogadoras() {
 
     card
       .querySelector(".btn-editar")
-      .addEventListener("click", () => preencherFormularioEdicao(index));
+      .addEventListener("click", () =>
+        preencherFormularioEdicao(indexOriginal)
+      );
 
     card
       .querySelector(".btn-excluir")
-      .addEventListener("click", () => deletarJogadora(index));
+      .addEventListener("click", () => deletarJogadora(indexOriginal));
 
     card
       .querySelector(".btn-favoritar")
-      .addEventListener("click", () => alterarEstadoFavorita(index));
+      .addEventListener("click", () => alterarEstadoFavorita(indexOriginal));
   });
 }
 
@@ -254,6 +301,7 @@ function atualizarJogadora(index) {
 
   jogadoras[index] = jogadoraAtualizada;
   salvarJogadoras();
+  atualizarFiltroClubes();
   exibirJogadoras();
 
   alert("Jogadora editada com sucesso!");
@@ -271,6 +319,7 @@ function deletarJogadora(index) {
 
   jogadoras.splice(index, 1);
   salvarJogadoras();
+  atualizarFiltroClubes();
   exibirJogadoras();
   alert("Jogadora removida com sucesso!");
 }
@@ -279,5 +328,6 @@ function deletarJogadora(index) {
 function alterarEstadoFavorita(index) {
   jogadoras[index].favorita = !jogadoras[index].favorita;
   salvarJogadoras();
+  atualizarFiltroClubes();
   exibirJogadoras();
 }
