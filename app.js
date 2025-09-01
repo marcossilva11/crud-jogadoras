@@ -58,11 +58,11 @@ const selectClube = document.querySelector("#filtroClubes");
 
 function atualizarFiltroClubes() {
   const select = document.querySelector("#filtroClubes");
-  select.innerHTML = '<option value="">Todos os clubes</option>'; 
+  select.innerHTML = '<option value="">Todos os clubes</option>';
 
   const clubes = [];
 
-  jogadoras.forEach(j => {
+  jogadoras.forEach((j) => {
     if (!clubes.includes(j.clube)) {
       clubes.push(j.clube);
     }
@@ -86,6 +86,31 @@ document.querySelector("#filtroClubes").addEventListener("change", function () {
     : jogadoras;
 
   exibirJogadoras(jogadorasFiltradas);
+});
+
+// Filtro por nome ou posição
+let ordemNomeAsc = true;
+
+const btnOrdenarNome = document.querySelector("#ordenarNome");
+
+btnOrdenarNome.addEventListener("click", () => {
+  const clubeSelecionado = selectClube.value;
+
+  let listaParaOrdenar = clubeSelecionado
+    ? jogadoras.filter((j) => j.clube === clubeSelecionado)
+    : jogadoras;
+
+  listaParaOrdenar.sort((a, b) => {
+    if (a.nome.toLowerCase() < b.nome.toLowerCase())
+      return ordemNomeAsc ? -1 : 1;
+    if (a.nome.toLowerCase() > b.nome.toLowerCase())
+      return ordemNomeAsc ? 1 : -1;
+    return 0;
+  });
+
+  exibirJogadoras(listaParaOrdenar);
+  ordemNomeAsc = !ordemNomeAsc; // alterna a ordem para o próximo clique
+  btnOrdenarNome.textContent = ordemNomeAsc ? "A-Z Nome" : "Z-A Nome";
 });
 
 // --- CRUD ---
