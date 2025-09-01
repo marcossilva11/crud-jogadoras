@@ -125,7 +125,7 @@ selectClube.addEventListener("change", aplicarFiltros);
 btnOrdenarNome.addEventListener("click", () => {
   tipoOrdenacao = "nome"
   ordemNomeAsc = !ordemNomeAsc;
-  btnOrdenarNome.textContent = ordemNomeAsc ? "A-Z Nome" : "Z-A Nome";
+  btnOrdenarNome.textContent = ordemNomeAsc ? "Z-A Nome" : "A-Z Nome";
   aplicarFiltros();
 });
 
@@ -133,8 +133,8 @@ btnOrdenarPosicao.addEventListener("click", () => {
   tipoOrdenacao = "posicao"
   posicaoAsc = !posicaoAsc;
   btnOrdenarPosicao.textContent = posicaoAsc
-    ? "Goleira - Atacante"
-    : "Atacante - Goleira";
+    ? "Atacante - Goleira"
+    : "Goleira - Atacante";
   aplicarFiltros();
 });
 
