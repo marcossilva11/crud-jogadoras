@@ -51,6 +51,8 @@ let jogadoras = [
   },
 ];
 
+let indexJogadora = null;
+
 const formTitulo = document.querySelector("#form-titulo");
 const formBtn = document.querySelector("#form-btn");
 
@@ -61,6 +63,10 @@ const secaoFormulario = document.querySelector("#form-section");
 
 btnAdicionarJogadora.addEventListener("click", () => {
   secaoFormulario.style.display = "flex";
+  document.querySelector("#form-jogadora").reset();
+  formTitulo.textContent = "Adicionar Jogadora";
+  formBtn.textContent = "Adicionar";
+  indexJogadora = null;
 });
 
 btnCancelar.addEventListener("click", () => {
@@ -75,7 +81,15 @@ window.onload = function () {
 
   document
     .querySelector("#form-jogadora")
-    .addEventListener("submit", adicionarJogadora);
+    .addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      if (indexJogadora !== null) {
+        atualizarJogadora(indexJogadora);
+      } else {
+        adicionarJogadora();
+      }
+    });
 };
 
 // LocalStorage
@@ -197,7 +211,48 @@ function preencherFormularioEdicao(index) {
 }
 
 // UPDATE
-function atualizarJogadora() {}
+function atualizarJogadora(index) {
+  const nome = document.querySelector("#nome").value.trim();
+  const posicao = document.querySelector("#posicao").value.trim();
+  const clube = document.querySelector("#clube").value.trim();
+  const foto = document.querySelector("#foto").value.trim();
+  const gols = document.querySelector("#gols").value.trim();
+  const assistencias = document.querySelector("#assistencias").value.trim();
+  const jogos = document.querySelector("#jogos").value.trim();
+
+  if (
+    !nome ||
+    !posicao ||
+    !clube ||
+    !foto ||
+    !gols ||
+    !assistencias ||
+    !jogos
+  ) {
+    alert("Por favor, preencha todos os campos.");
+    return;
+  }
+
+  const jogadoraAtualizada = {
+    nome,
+    posicao,
+    clube,
+    foto,
+    gols: parseInt(gols),
+    assistencias: parseInt(assistencias),
+    jogos: parseInt(jogos),
+    favorita: jogadoras[index].favorita,
+  };
+
+  jogadoras[index] = jogadoraAtualizada;
+  salvarJogadoras();
+  exibirJogadoras();
+
+  alert("Jogadora atualizada com sucesso!");
+  document.getElementById("form-jogadora").reset();
+  secaoFormulario.style.display = "none";
+  indexJogadora = null;
+}
 
 // DELETE
 function deletarJogadora() {}
