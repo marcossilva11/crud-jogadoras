@@ -189,6 +189,10 @@ function exibirJogadoras() {
     card
       .querySelector(".btn-editar")
       .addEventListener("click", () => preencherFormularioEdicao(index));
+
+    card
+      .querySelector(".btn-excluir")
+      .addEventListener("click", () => deletarJogadora(index));
   });
 }
 
