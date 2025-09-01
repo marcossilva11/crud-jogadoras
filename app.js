@@ -87,7 +87,7 @@ window.onload = function () {
       if (indexJogadora !== null) {
         atualizarJogadora(indexJogadora);
       } else {
-        adicionarJogadora();
+        adicionarJogadora(e);
       }
     });
 };
