@@ -69,7 +69,9 @@ window.onload = function () {
   carregarJogadoras();
   exibirJogadoras();
 
-  document.querySelector("#form-jogadora").addEventListener("submit", adicionarJogadora);
+  document
+    .querySelector("#form-jogadora")
+    .addEventListener("submit", adicionarJogadora);
 };
 
 // LocalStorage
@@ -124,6 +126,7 @@ function adicionarJogadora(e) {
   salvarJogadoras();
   exibirJogadoras();
 
+  alert("Jogadora adicionada com sucesso!");
   document.getElementById("form-jogadora").reset();
   secaoFormulario.style.display = "none";
 }
