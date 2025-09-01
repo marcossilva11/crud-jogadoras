@@ -194,7 +194,10 @@ function exibirJogadoras() {
       .querySelector(".btn-excluir")
       .addEventListener("click", () => deletarJogadora(index));
 
-    card.querySelector(".btn-favoritar").addEventListener("click", () => alterarEstadoFavorita(index));
+    card
+      .querySelector(".btn-favoritar")
+      .addEventListener("click", () => alterarEstadoFavorita(index));
+  });
 }
 
 // preenchendo o formulario para edicao
@@ -270,4 +273,11 @@ function deletarJogadora(index) {
   salvarJogadoras();
   exibirJogadoras();
   alert("Jogadora removida com sucesso!");
+}
+
+// alterar estado de jogadora favorita
+function alterarEstadoFavorita(index) {
+  jogadoras[index].favorita = !jogadoras[index].favorita;
+  salvarJogadoras();
+  exibirJogadoras();
 }
