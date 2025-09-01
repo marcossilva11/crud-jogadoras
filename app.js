@@ -51,6 +51,9 @@ let jogadoras = [
   },
 ];
 
+const formTitulo = document.querySelector("#form-titulo");
+const formBtn = document.querySelector("#form-btn");
+
 // Exibindo formulario
 const btnAdicionarJogadora = document.querySelector("#btn-adicionar");
 const btnCancelar = document.querySelector("#form-cancelar");
@@ -61,6 +64,7 @@ btnAdicionarJogadora.addEventListener("click", () => {
 });
 
 btnCancelar.addEventListener("click", () => {
+  document.querySelector("#form-jogadora").reset();
   secaoFormulario.style.display = "none";
 });
 
@@ -136,7 +140,7 @@ function exibirJogadoras() {
   const container = document.querySelector("#cards-section");
   container.innerHTML = "";
 
-  jogadoras.forEach((j) => {
+  jogadoras.forEach((j, index) => {
     const card = document.createElement("div");
     card.classList.add("card");
 
@@ -167,7 +171,29 @@ function exibirJogadoras() {
           </div>
     `;
     container.appendChild(card);
+
+    card
+      .querySelector(".btn-editar")
+      .addEventListener("click", () => preencherFormularioEdicao(index));
   });
+}
+
+// preenchendo o formulario para edicao
+function preencherFormularioEdicao(index) {
+  const jogadora = jogadoras[index];
+  document.querySelector("#nome").value = jogadora.nome;
+  document.querySelector("#posicao").value = jogadora.posicao;
+  document.querySelector("#clube").value = jogadora.clube;
+  document.querySelector("#foto").value = jogadora.foto;
+  document.querySelector("#gols").value = jogadora.gols;
+  document.querySelector("#assistencias").value = jogadora.assistencias;
+  document.querySelector("#jogos").value = jogadora.jogos;
+  document.querySelector("#form-btn").textContent = "Salvar";
+  indexJogadora = index;
+
+  secaoFormulario.style.display = "flex";
+  formTitulo.textContent = "Editar Jogadora";
+  formBtn.textContent = "Salvar";
 }
 
 // UPDATE
