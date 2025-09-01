@@ -88,7 +88,7 @@ document.querySelector("#filtroClubes").addEventListener("change", function () {
   exibirJogadoras(jogadorasFiltradas);
 });
 
-// Filtro por nome ou posição
+// Filtro por nome
 let ordemNomeAsc = true;
 
 const btnOrdenarNome = document.querySelector("#ordenarNome");
@@ -111,6 +111,36 @@ btnOrdenarNome.addEventListener("click", () => {
   exibirJogadoras(listaParaOrdenar);
   ordemNomeAsc = !ordemNomeAsc; // alterna a ordem para o próximo clique
   btnOrdenarNome.textContent = ordemNomeAsc ? "A-Z Nome" : "Z-A Nome";
+});
+
+// Filtro por posiçao (goleira ate atacante)
+const ordemPosicoes = {
+  "Goleira": 1,
+  "Zagueira": 2,
+  "Meio-campo": 3,
+  "Atacante": 4
+}
+
+let posicaoAsc = true;
+
+const btnOrdenarPosicao = document.querySelector("#ordenarPosicao");
+
+btnOrdenarPosicao.addEventListener("click", () => {
+  const clubeSelecionado = selectClube.value;
+
+  let listaParaOrdenar = clubeSelecionado
+    ? jogadoras.filter((j) => j.clube === clubeSelecionado)
+    : jogadoras;
+
+  listaParaOrdenar.sort((a, b) => {
+    const posicaoA = ordemPosicoes[a.posicao] || 0;
+    const posicaoB = ordemPosicoes[b.posicao] || 0;
+    return posicaoAsc ? posicaoA - posicaoB : posicaoB - posicaoA;
+  });
+
+  exibirJogadoras(listaParaOrdenar);
+  posicaoAsc = !posicaoAsc; // alterna a ordem para o próximo clique
+  btnOrdenarPosicao.textContent = posicaoAsc ? "Goleira - Atacante" : "Atacante - Goleira";
 });
 
 // --- CRUD ---
