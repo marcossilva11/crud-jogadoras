@@ -52,96 +52,89 @@ let jogadoras = [
 ];
 
 // --- FILTROS ---
+let ordemNomeAsc = true;
+let posicaoAsc = true;
+let tipoOrdenacao = "padrao";
 
-// Filtro por clube
+const ordemPosicoes = {
+  Goleira: 1,
+  Zagueira: 2,
+  "Meio-campo": 3,
+  Atacante: 4,
+};
+
+const inputBusca = document.querySelector("#busca");
 const selectClube = document.querySelector("#filtroClubes");
+const btnOrdenarNome = document.querySelector("#ordenarNome");
+const btnOrdenarPosicao = document.querySelector("#ordenarPosicao");
 
 function atualizarFiltroClubes() {
-  const select = document.querySelector("#filtroClubes");
-  select.innerHTML = '<option value="">Todos os clubes</option>';
-
+  selectClube.innerHTML = '<option value="">Todos os clubes</option>';
   const clubes = [];
-
   jogadoras.forEach((j) => {
-    if (!clubes.includes(j.clube)) {
-      clubes.push(j.clube);
-    }
+    if (!clubes.includes(j.clube)) clubes.push(j.clube);
   });
-
   clubes.forEach((clube) => {
     const option = document.createElement("option");
     option.value = clube;
     option.textContent = clube;
-    select.appendChild(option);
+    selectClube.appendChild(option);
   });
 }
 
-atualizarFiltroClubes();
+function aplicarFiltros() {
+  const textoBusca = inputBusca.value.trim().toLowerCase();
+  const clubeSelecionado = selectClube.value;
 
-document.querySelector("#filtroClubes").addEventListener("change", function () {
-  const clubeSelecionado = this.value;
+  let listaFiltrada = jogadoras.filter((j) => {
+    const correspondeNomeOuPosicao =
+      j.nome.toLowerCase().includes(textoBusca) ||
+      j.posicao.toLowerCase().includes(textoBusca);
+    const correspondeClube = clubeSelecionado
+      ? j.clube === clubeSelecionado
+      : true;
+    return correspondeNomeOuPosicao && correspondeClube;
+  });
 
-  const jogadorasFiltradas = clubeSelecionado
-    ? jogadoras.filter((j) => j.clube === clubeSelecionado)
-    : jogadoras;
+  if (tipoOrdenacao === "nome") {
+    listaFiltrada.sort((a, b) => {
+      const resultadoNome = a.nome
+        .toLowerCase()
+        .localeCompare(b.nome.toLowerCase());
+      return ordemNomeAsc ? resultadoNome : -resultadoNome;
+    });
+  } else if (tipoOrdenacao === "posicao") {
+    listaFiltrada.sort((a, b) => {
+      const posA = ordemPosicoes[a.posicao] || 0;
+      const posB = ordemPosicoes[b.posicao] || 0;
+      return posicaoAsc ? posA - posB : posB - posA;
+    });
+  }
 
-  exibirJogadoras(jogadorasFiltradas);
-});
+  exibirJogadoras(listaFiltrada);
+}
 
-// Filtro por nome
-let ordemNomeAsc = true;
-
-const btnOrdenarNome = document.querySelector("#ordenarNome");
+inputBusca.addEventListener("input", aplicarFiltros);
+selectClube.addEventListener("change", aplicarFiltros);
 
 btnOrdenarNome.addEventListener("click", () => {
-  const clubeSelecionado = selectClube.value;
-
-  let listaParaOrdenar = clubeSelecionado
-    ? jogadoras.filter((j) => j.clube === clubeSelecionado)
-    : jogadoras;
-
-  listaParaOrdenar.sort((a, b) => {
-    if (a.nome.toLowerCase() < b.nome.toLowerCase())
-      return ordemNomeAsc ? -1 : 1;
-    if (a.nome.toLowerCase() > b.nome.toLowerCase())
-      return ordemNomeAsc ? 1 : -1;
-    return 0;
-  });
-
-  exibirJogadoras(listaParaOrdenar);
-  ordemNomeAsc = !ordemNomeAsc; // alterna a ordem para o próximo clique
+  tipoOrdenacao = "nome"
+  ordemNomeAsc = !ordemNomeAsc;
   btnOrdenarNome.textContent = ordemNomeAsc ? "A-Z Nome" : "Z-A Nome";
+  aplicarFiltros();
 });
-
-// Filtro por posiçao (goleira ate atacante)
-const ordemPosicoes = {
-  "Goleira": 1,
-  "Zagueira": 2,
-  "Meio-campo": 3,
-  "Atacante": 4
-}
-
-let posicaoAsc = true;
-
-const btnOrdenarPosicao = document.querySelector("#ordenarPosicao");
 
 btnOrdenarPosicao.addEventListener("click", () => {
-  const clubeSelecionado = selectClube.value;
-
-  let listaParaOrdenar = clubeSelecionado
-    ? jogadoras.filter((j) => j.clube === clubeSelecionado)
-    : jogadoras;
-
-  listaParaOrdenar.sort((a, b) => {
-    const posicaoA = ordemPosicoes[a.posicao] || 0;
-    const posicaoB = ordemPosicoes[b.posicao] || 0;
-    return posicaoAsc ? posicaoA - posicaoB : posicaoB - posicaoA;
-  });
-
-  exibirJogadoras(listaParaOrdenar);
-  posicaoAsc = !posicaoAsc; // alterna a ordem para o próximo clique
-  btnOrdenarPosicao.textContent = posicaoAsc ? "Goleira - Atacante" : "Atacante - Goleira";
+  tipoOrdenacao = "posicao"
+  posicaoAsc = !posicaoAsc;
+  btnOrdenarPosicao.textContent = posicaoAsc
+    ? "Goleira - Atacante"
+    : "Atacante - Goleira";
+  aplicarFiltros();
 });
+
+atualizarFiltroClubes();
+aplicarFiltros();
 
 // --- CRUD ---
 
@@ -171,8 +164,8 @@ btnCancelar.addEventListener("click", () => {
 // Inicializacao
 window.onload = function () {
   carregarJogadoras();
-  exibirJogadoras();
   atualizarFiltroClubes();
+  aplicarFiltros();
 
   document
     .querySelector("#form-jogadora")
@@ -383,6 +376,5 @@ function deletarJogadora(index) {
 function alterarEstadoFavorita(index) {
   jogadoras[index].favorita = !jogadoras[index].favorita;
   salvarJogadoras();
-  atualizarFiltroClubes();
-  exibirJogadoras();
+  aplicarFiltros();
 }
