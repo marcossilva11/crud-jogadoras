@@ -193,7 +193,8 @@ function exibirJogadoras() {
     card
       .querySelector(".btn-excluir")
       .addEventListener("click", () => deletarJogadora(index));
-  });
+
+    card.querySelector(".btn-favoritar").addEventListener("click", () => alterarEstadoFavorita(index));
 }
 
 // preenchendo o formulario para edicao
